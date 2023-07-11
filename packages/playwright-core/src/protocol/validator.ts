@@ -1100,6 +1100,20 @@ scheme.PageTouchscreenTapParams = tObject({
   y: tNumber,
 });
 scheme.PageTouchscreenTapResult = tOptional(tObject({}));
+scheme.PageTouchscreenMoveParams = tObject({
+  startX: tNumber,
+  startY: tNumber,
+  endX: tNumber,
+  endY: tNumber,
+});
+scheme.PageTouchscreenMoveResult = tOptional(tObject({}));
+scheme.PageTouchscreenDownParams = tObject({
+  startX: tNumber,
+  startY: tNumber,
+});
+scheme.PageTouchscreenDownResult = tOptional(tObject({}));
+scheme.PageTouchscreenUpParams = tOptional(tObject({}));
+scheme.PageTouchscreenUpResult = tOptional(tObject({}));
 scheme.PageAccessibilitySnapshotParams = tObject({
   interestingOnly: tOptional(tBoolean),
   root: tOptional(tChannel(['ElementHandle'])),
@@ -1581,7 +1595,6 @@ scheme.FrameExpectParams = tObject({
 scheme.FrameExpectResult = tObject({
   matches: tBoolean,
   received: tOptional(tType('SerializedValue')),
-  timedOut: tOptional(tBoolean),
   log: tOptional(tArray(tString)),
 });
 scheme.WorkerInitializer = tObject({

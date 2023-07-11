@@ -1414,6 +1414,20 @@ Page:
       tracing:
         snapshot: true
 
+    touchscreenMove:
+      parameters:
+        startX: number
+        startY: number
+        endX: number
+        endY: number
+
+    touchscreenDown:
+      parameters:
+        startX: number
+        startY: number
+
+    touchscreenUp:
+
     accessibilitySnapshot:
       parameters:
         interestingOnly: boolean?
@@ -2130,7 +2144,6 @@ Frame:
       returns:
         matches: boolean
         received: SerializedValue?
-        timedOut: boolean?
         log:
           type: array?
           items: string

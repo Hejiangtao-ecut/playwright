@@ -43,7 +43,7 @@ export class ProgressController {
   private _state: 'before' | 'running' | 'aborted' | 'finished' = 'before';
   private _deadline: number = 0;
   private _timeout: number = 0;
-  private _lastIntermediateResult: { value: any } | undefined;
+  private _lastIntermediateResult: any;
   readonly metadata: CallMetadata;
   readonly instrumentation: Instrumentation;
   readonly sdkObject: SdkObject;
@@ -59,7 +59,7 @@ export class ProgressController {
     this._logName = logName;
   }
 
-  lastIntermediateResult(): { value: any } | undefined {
+  lastIntermediateResult() {
     return this._lastIntermediateResult;
   }
 
@@ -85,7 +85,7 @@ export class ProgressController {
           this.instrumentation.onCallLog(this.sdkObject, this.metadata, this._logName, message);
         }
         if ('intermediateResult' in entry)
-          this._lastIntermediateResult = { value: entry.intermediateResult };
+          this._lastIntermediateResult = entry.intermediateResult;
       },
       timeUntilDeadline: () => this._deadline ? this._deadline - monotonicTime() : 2147483647, // 2^31-1 safe setTimeout in Node.
       isRunning: () => this._state === 'running',

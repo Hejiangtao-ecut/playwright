@@ -27,7 +27,7 @@ import type { ParsedStackTrace } from 'playwright-core/lib/utils/stackTrace';
 import { isTextualMimeType } from 'playwright-core/lib/utils/mimeType';
 
 interface LocatorEx extends Locator {
-  _expect(customStackTrace: ParsedStackTrace, expression: string, options: Omit<FrameExpectOptions, 'expectedValue'> & { expectedValue?: any }): Promise<{ matches: boolean, received?: any, log?: string[], timedOut?: boolean }>;
+  _expect(customStackTrace: ParsedStackTrace, expression: string, options: Omit<FrameExpectOptions, 'expectedValue'> & { expectedValue?: any }): Promise<{ matches: boolean, received?: any, log?: string[] }>;
 }
 
 interface APIResponseEx extends APIResponse {

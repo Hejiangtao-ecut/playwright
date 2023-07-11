@@ -4,31 +4,6 @@ title: "Release notes"
 toc_max_heading_level: 2
 ---
 
-## Version 1.28
-
-### Playwright Tools
-
-* **Live Locators in CodeGen.** Generate a locator for any element on the page using "Explore" tool.
-
-![Locator Explorer](https://user-images.githubusercontent.com/9798949/202293514-8e2eade6-c809-4b0a-864b-899dfcee3d84.png)
-
-### New APIs
-
-- [`method: Locator.blur`]
-- [`method: Locator.clear`]
-
-### Browser Versions
-
-* Chromium 108.0.5359.29
-* Mozilla Firefox 106.0
-* WebKit 16.4
-
-This version was also tested against the following stable channels:
-
-* Google Chrome 107
-* Microsoft Edge 107
-
-
 ## Version 1.27
 
 ### Locators
@@ -122,7 +97,7 @@ This version was also tested against the following stable channels:
 
 ### Announcements
 
-* 🎁 We now ship Ubuntu 22.04 Jammy Jellyfish docker image: `mcr.microsoft.com/playwright/python:v1.29.0-jammy`.
+* 🎁 We now ship Ubuntu 22.04 Jammy Jellyfish docker image: `mcr.microsoft.com/playwright/python:v1.28.0-jammy`.
 * 🪦 This is the last release with macOS 10.15 support (deprecated as of 1.21).
 * ⚠️ Ubuntu 18 is now deprecated and will not be supported as of Dec 2022.
 

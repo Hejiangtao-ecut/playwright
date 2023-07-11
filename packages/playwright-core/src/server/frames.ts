@@ -734,8 +734,33 @@ export class Frame extends SdkObject {
 
   async _waitForLoadState(progress: Progress, state: types.LifecycleEvent): Promise<void> {
     const waitUntil = verifyLifecycle('state', state);
-    if (!this._firedLifecycleEvents.has(waitUntil))
-      await helper.waitForEvent(progress, this, Frame.Events.AddLifecycle, (e: types.LifecycleEvent) => e === waitUntil).promise;
+    if (!this._firedLifecycleEvents.has(waitUntil)) {
+      const context = await this._utilityContext();
+      if (waitUntil === 'load') {
+        const state = await context.evaluate(() => document.readyState);
+        if (state === 'complete')
+          return;
+      }
+      return new Promise((resolve, reject) => {
+        const timer = setInterval(async () => {
+          const state = await context.evaluate(() => document.readyState);
+          if (state === 'complete') {
+            clearInterval(timer);
+            resolve();
+          }
+        }, 500);
+
+        helper.waitForEvent(progress, this, Frame.Events.AddLifecycle, (e: types.LifecycleEvent) => e === waitUntil).promise
+          .then(() => {
+            clearInterval(timer);
+            resolve();
+          })
+          .catch(e => {
+            clearInterval(timer);
+            reject(e);
+          });
+      });
+    }
   }
 
   async frameElement(): Promise<dom.ElementHandle> {
@@ -1358,7 +1383,7 @@ export class Frame extends SdkObject {
     });
   }
 
-  async expect(metadata: CallMetadata, selector: string, options: FrameExpectParams): Promise<{ matches: boolean, received?: any, log?: string[], timedOut?: boolean }> {
+  async expect(metadata: CallMetadata, selector: string, options: FrameExpectParams): Promise<{ matches: boolean, received?: any, log?: string[] }> {
     const controller = new ProgressController(metadata, this);
     const isArray = options.expression === 'to.have.count' || options.expression.endsWith('.array');
     const mainWorld = options.expression === 'to.have.property';
@@ -1406,7 +1431,7 @@ export class Frame extends SdkObject {
           // expect(locator).not.conditionThatDoesMatch
           progress.setIntermediateResult(result.received);
           if (!Array.isArray(result.received))
-            progress.log(`  unexpected value "${progress.injectedScript.renderUnexpectedValue(options.expression, result.received)}"`);
+            progress.log(`  unexpected value "${result.received}"`);
           return progress.continuePolling;
         }
 
@@ -1418,13 +1443,7 @@ export class Frame extends SdkObject {
       // A: We want user to receive a friendly message containing the last intermediate result.
       if (js.isJavaScriptErrorInEvaluate(e) || isInvalidSelectorError(e))
         throw e;
-      const result: { matches: boolean, received?: any, log?: string[], timedOut?: boolean } = { matches: options.isNot, log: metadata.log };
-      const intermediateResult = controller.lastIntermediateResult();
-      if (intermediateResult)
-        result.received = intermediateResult.value;
-      else
-        result.timedOut = true;
-      return result;
+      return { received: controller.lastIntermediateResult(), matches: options.isNot, log: metadata.log };
     });
   }
 

@@ -102,15 +102,19 @@ To record a test click on the **Record new** button from the Testing sidebar. Th
   Your browser does not support the video tag.
 </video>
 
-### Record at Cursor
+### Record From Here
 
-To record from a specific point in your test file click the **Record at cursor** button from the Testing sidebar. This generates actions into the existing test at the current cursor position. You can run the test, position the cursor at the end of the test and continue generating the test.
+Record a new test snippet. This creates a new empty test file but the recording starts from the current browser state from the previous test instead of starting a new browser. This snippet can then be pasted into a previous test file so it can be properly run. Note in the example below the test starts from the last state of a previous test and therefore has no `page.goto()` action.
 
-### Picking a Locator
 
-Pick a locator and copy it into your test file by clicking the **Pick locator** button form the testing sidebar. Then in the browser click the element you require and it will now show up in the **Pick locator** box in VS Code. Press 'enter' on your keyboard to copy the locator into the clipboard and then paste anywhere in your code. Or press 'escape' if you want to cancel.
+<img width="1392" alt="record a test from a specific browser state" src="https://user-images.githubusercontent.com/13063165/197740755-fa845cbb-6292-44a4-8134-af1ce15f438a.png" />
 
-<img width="1394" alt="Pick locators" src="https://user-images.githubusercontent.com/13063165/201847977-6ca501d0-96b4-4775-ade9-d6269a5d03f9.png" />
+### Picking a Selector
+
+Pick a selector and copy it into your test file by clicking the **Pick selector** button form the testing sidebar. Then in the browser click the selector you require and it will now show up in the **Pick selector** box in VS Code. Press 'enter' on your keyboard to copy the selector into the clipboard and then paste anywhere in your code. Or press 'escape' if you want to cancel.
+
+<img width="1394" alt="Pick selectors" src="https://user-images.githubusercontent.com/13063165/197714946-cb82231d-a6f8-4183-b54b-3375ffaa7092.png" />
+
 
 
 ## What's next
