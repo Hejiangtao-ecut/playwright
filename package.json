@@ -1,8 +1,7 @@
 {
-  "name": "playwright-internal",
-  "private": true,
-  "version": "1.29.0-next",
-  "description": "A high-level API to automate web browsers",
+  "name": "@baidu/playwright-expand",
+  "version": "1.28.0-beta5",
+  "description": "A high-level API to automate web browsers dev",
   "repository": "github:Microsoft/playwright",
   "homepage": "https://playwright.dev",
   "engines": {
